@@ -1,0 +1,14 @@
+{
+  "n_rows": 60000,
+  "n_features": 170,
+  "class_counts": {
+    "0": 58914,
+    "1": 1086
+  },
+  "missing_ratio_max": 0.8209833333333333,
+  "missing_ratio_median": 0.011316666666666666,
+  "notes": [
+    "EDA outputs are saved under OUTPUT_DIR/eda.",
+    "Correlations are computed on median-imputed numeric features for exploratory purposes only."
+  ]
+}

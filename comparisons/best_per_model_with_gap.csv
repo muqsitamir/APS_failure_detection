@@ -1,0 +1,4 @@
+model,mean_test_score,std_test_score,mean_train_score,std_train_score,rank_test_score,params,train_minus_test
+XGBoost,0.9608040392262953,0.008529478578245939,0.9876221408058555,0.0007563495979305317,1,"{'clf__colsample_bytree': 0.8, 'clf__learning_rate': 0.05, 'clf__max_depth': 3, 'clf__n_estimators': 300, 'clf__subsample': 1.0}",0.026818101579560216
+LogisticRegression,0.9450619567839196,0.007389021210437254,0.9555949999050943,0.000796767422848282,1,"{'clf__C': 0.01, 'clf__penalty': 'l1'}",0.010533043121174757
+RandomForest,0.9442082110532132,0.00832822502030557,0.9851606597289205,0.0006935824902814515,1,"{'clf__max_depth': 10, 'clf__max_features': 'sqrt', 'clf__min_samples_leaf': 10, 'clf__n_estimators': 600}",0.040952448675707354

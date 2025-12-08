@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "data_dir": "/Users/apple/PycharmProjects/APS_failure_detection",
+  "output_dir": "/Users/apple/PycharmProjects/APS_failure_detection",
+  "best_model": "XGBoost",
+  "best_params": {
+    "clf__colsample_bytree": 0.8,
+    "clf__learning_rate": 0.05,
+    "clf__max_depth": 3,
+    "clf__n_estimators": 300,
+    "clf__subsample": 1.0
+  },
+  "best_cv_balanced_accuracy": 0.9608040392262953,
+  "threshold": 0.3,
+  "note": "All preprocessing is inside sklearn Pipelines to avoid leakage in CV."
+}
