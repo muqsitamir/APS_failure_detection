@@ -6,7 +6,7 @@ from sklearn.metrics import balanced_accuracy_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 
-from main import GRID_BACKEND, GRID_N_JOBS
+from train import GRID_BACKEND, GRID_N_JOBS
 
 
 def tune_with_gridsearch(name: str, pipe: Pipeline, grid: dict, scorer, X, y, cv):

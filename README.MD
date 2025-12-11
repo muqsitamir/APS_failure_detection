@@ -8,7 +8,7 @@ It covers everything from **EDA and preprocessing** to **model selection**, **th
 
 ## Key Features
 
-- **Fully reproducible training pipeline** in `main.py`
+- **Fully reproducible training pipeline** in `train.py`
 - **EDA**: automatic descriptive statistics & plots saved to disk
 - **Robust preprocessing**:
   - Missing value handling
@@ -33,7 +33,7 @@ It covers everything from **EDA and preprocessing** to **model selection**, **th
 
 ## Project Structure
 
-- `main.py` – orchestrates the whole training + evaluation + submission flow
+- `train.py` – orchestrates the whole training + evaluation + submission flow
 - `pipelines/`
   - `build_models.py` – defines sklearn pipelines, search grids, and scorers
   - `eda.py` – EDA routines and artifact generation
@@ -126,7 +126,7 @@ So `load_data` must return:
 Once data and environment variables are set, run:
 
 ```bash
-python main.py
+python train.py
 ```
 
 This will:
@@ -217,7 +217,6 @@ This will:
     ```python
     model_path = os.path.join(OUTPUT_DIR, "best_model.joblib")
     joblib.dump(best_estimator, model_path)
-    ```
 
 11. **Save run metadata**:
 
@@ -233,71 +232,29 @@ This will:
 
 ## Using the Trained Model for Inference
 
-After running `main.py`, you will have at least:
+After running `train.py`, you will have at least:
 
 - `outputs/best_model.joblib`
 - `outputs/run_metadata.json`
 
-You can load and use the model in your own scripts or notebooks:
-
-```python
-import json
-import joblib
-import numpy as np
-import pandas as pd
-
-# Paths to artifacts
-MODEL_PATH = "outputs/best_model.joblib"
-META_PATH = "outputs/run_metadata.json"
-
-# Load model and metadata
-model = joblib.load(MODEL_PATH)
-
-with open(META_PATH, "r", encoding="utf-8") as f:
-    meta = json.load(f)
-
-threshold = float(meta.get("threshold", 0.5))
-
-# X_new must be a DataFrame with the same features & preprocessing expectations as X_train
-X_new = pd.read_csv("path/to/your/new_data.csv")  # example
-
-if hasattr(model, "predict_proba"):
-    probs = model.predict_proba(X_new)[:, 1]
-    preds_int = (probs >= threshold).astype(int)
-else:
-    preds_int = model.predict(X_new).astype(int)
-
-preds_label = pd.Series(preds_int).map({0: "neg", 1: "pos"})
-print(preds_label.head())
-```
+You can load and use the model for your own data using `inference.py`
 
 ### Important Notes for Inference
 
 - **Input schema** must match what the pipeline expects:
   - Same column names
   - Same types (numeric/categorical)
-  - Missing values will be handled as during training (via the sklearn pipeline).
+  - Missing values will be handled as during training.
 - The model encapsulates **all preprocessing steps**, so you should pass **raw features** in the same format as the training data (no manual preprocessing required).
 
 ---
 
 ## Reproducibility
 
-- Random seed is fixed in `main.py` (e.g. `SEED = 42`).
+- Random seed is fixed in `train.py` (e.g. `SEED = 42`).
 - `run_metadata.json` stores:
   - The seed used
   - The selected best model and its hyperparameters
   - The cross-validated balanced accuracy
   - The decision threshold
 
-This makes it easy to **reproduce** a given run and understand how the final model was obtained.
-
----
-
-## License
-
-Add your project’s license here, for example:
-
-```text
-MIT License – see LICENSE file for details.
-```

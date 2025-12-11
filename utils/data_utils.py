@@ -2,7 +2,7 @@ import os
 
 import pandas as pd
 
-from main import DATA_DIR
+from train import DATA_DIR
 
 
 def load_data_for_eda():

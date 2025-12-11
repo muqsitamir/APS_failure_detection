@@ -9,7 +9,7 @@ from sklearn.metrics import make_scorer, balanced_accuracy_score
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBClassifier
 
-from main import SEED
+from train import SEED
 from pipelines.preprocessing import DropHighMissingColumns
 from sklearn.pipeline import Pipeline
 

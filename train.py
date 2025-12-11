@@ -46,7 +46,6 @@ if __name__ == "__main__":
         if best is None or gs.best_score_ > best[1].best_score_:
             best = (name, gs)
 
-    # Save experiment table for the report
     experiments_df = pd.concat(all_results, ignore_index=True)
     experiments_path = os.path.join(OUTPUT_DIR, "experiments.csv")
     experiments_df.to_csv(experiments_path, index=False)
@@ -63,7 +62,6 @@ if __name__ == "__main__":
     best_name, best_gs = best
     best_estimator = best_gs.best_estimator_
 
-    # Optional: threshold tuning (helps when false negatives are costly)
     best_threshold, threshold_df = find_best_threshold_cv(best_estimator, X_train, y, cv)
     if threshold_df is not None:
         thr_path = os.path.join(OUTPUT_DIR, "threshold_tuning.csv")
@@ -73,10 +71,8 @@ if __name__ == "__main__":
     else:
         print(f"\nUsing default threshold 0.50 for {best_name} (no predict_proba).")
 
-    # Fit best estimator on full training data
     best_estimator.fit(X_train, y)
 
-    # Predict on test
     if hasattr(best_estimator, "predict_proba"):
         test_probs = best_estimator.predict_proba(X_test)[:, 1]
         test_pred = (test_probs >= best_threshold).astype(int)
@@ -90,12 +86,10 @@ if __name__ == "__main__":
     submission_df.to_csv(sub_path, index_label="Id")
     print(f"\nWrote Kaggle submission to: {sub_path}")
 
-    # Persist model for reproducibility
-    model_path = os.path.join(OUTPUT_DIR, "best_model.joblib")
+    model_path = os.path.join(OUTPUT_DIR, "models/best_model.joblib")
     joblib.dump(best_estimator, model_path)
     print(f"Saved best model pipeline to: {model_path}")
 
-    # Saving meta data from run
     meta = {
         "seed": SEED,
         "data_dir": os.path.abspath(DATA_DIR),
