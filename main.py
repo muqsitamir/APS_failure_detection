@@ -23,7 +23,6 @@ DATA_DIR = os.environ.get("DATA_DIR", "./data")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "./outputs")
 
 
-
 if __name__ == "__main__":
     X_train, y_raw, X_test = load_data(DATA_DIR)
     y = encode_labels(y_raw)
