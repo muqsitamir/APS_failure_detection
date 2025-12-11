@@ -86,7 +86,7 @@ if __name__ == "__main__":
     submission_df = pd.DataFrame(index=X_test.index)
     submission_df["Prediction"] = pd.Series(test_pred, index=X_test.index).map({0: "neg", 1: "pos"})
 
-    sub_path = os.path.join(OUTPUT_DIR, "submission.csv")
+    sub_path = os.path.join(OUTPUT_DIR, "predictions.csv")
     submission_df.to_csv(sub_path, index_label="Id")
     print(f"\nWrote Kaggle submission to: {sub_path}")
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     joblib.dump(best_estimator, model_path)
     print(f"Saved best model pipeline to: {model_path}")
 
-    # Save run metadata (seeds, chosen model, params, threshold)
+    # Saving meta data from run
     meta = {
         "seed": SEED,
         "data_dir": os.path.abspath(DATA_DIR),
