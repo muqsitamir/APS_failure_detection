@@ -247,6 +247,22 @@ You can load and use the model for your own data using `inference.py`
   - Missing values will be handled as during training.
 - The model encapsulates **all preprocessing steps**, so you should pass **raw features** in the same format as the training data (no manual preprocessing required).
 
+### Optional Evaluation (if labels are available)
+
+`inference.py` can also evaluate predictions if you provide ground-truth labels.
+
+- Put your files here:
+  - `data/X_infer.csv` — feature rows to run inference on
+  - `data/y_infer.csv` — true labels for the same rows (optional)
+
+- If `data/y_infer.csv` exists and `evaluation = True`, the script will:
+  - compute **balanced accuracy**
+  - print a **classification report**
+  - plot a **confusion matrix**
+  - plot **per-class precision/recall**
+
+> Note: `X_test.csv` and `y_test.csv` must have the same row order and length (otherwise it will evaluate on the overlapping portion).
+
 ---
 
 ## Reproducibility

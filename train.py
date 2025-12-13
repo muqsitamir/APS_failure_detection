@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 
 from sklearn.model_selection import StratifiedKFold
-
 from pipelines.build_models import build_pipelines
 from pipelines.eda import run_eda
 from pipelines.preprocessing import encode_labels
@@ -21,7 +20,6 @@ GRID_BACKEND = os.environ.get("GRID_BACKEND", "threading")
 
 DATA_DIR = os.environ.get("DATA_DIR", "./data")
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "./outputs")
-
 
 if __name__ == "__main__":
     X_train, y_raw, X_test = load_data(DATA_DIR)
